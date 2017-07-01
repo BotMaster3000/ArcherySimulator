@@ -75,7 +75,28 @@ namespace ArcherySimulator
             {
                 if(currentExperience != value)
                 {
-                    currentExperience = value;
+                    if(CurrentLevel == 1 && (value < 0))
+                    {
+                        MessageBox.Show("1");
+                        currentExperience = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("2 " + value);
+                        currentExperience = value;
+                    }
+                    if (currentExperience >= 100)
+                    {
+                        MessageBox.Show("3");
+                        currentExperience = currentExperience - 100;
+                        CurrentLevel += 1;
+                    }
+                    else if (currentExperience < 0)
+                    {
+                        MessageBox.Show("4 " + value);
+                        CurrentLevel -= 1;
+                        currentExperience = 100 + value;
+                    }
                     PropertyChanged(this, new PropertyChangedEventArgs("CurrentExperience"));
                 }
             }
@@ -96,6 +117,7 @@ namespace ArcherySimulator
                 if(currentLevel != value)
                 {
                     currentLevel = value;
+                    AddToLog("You are now level " + CurrentLevel);
                     PropertyChanged(this, new PropertyChangedEventArgs("CurrentLevel"));
                 }
             }
@@ -126,24 +148,38 @@ namespace ArcherySimulator
         }
         public void Train(object sender, RoutedEventArgs e)
         {
-            for(int i = 0; i < 10; ++i)
+            while (HasEnoughStamina(10))
             {
                 Shoot(new object(), new RoutedEventArgs());
             }
-        }
+        AddToLog("You dont habe enough Stamina");
+    }
         public void Sleep(object sender, RoutedEventArgs e)
         {
             CurrentStamina = 100;
+
+            CurrentExperience -= 50;
+
             AddToLog("You went to sleep");
+
+            if(btnBreak.IsEnabled == false)
+            {
+                btnBreak.IsEnabled = true;
+            }
         }
         public void Break(object sender, RoutedEventArgs e)
         {
+            btnBreak.IsEnabled = false;
+
             int stamina = CurrentStamina;
             stamina += 50;
             if(stamina > 100)
             {
                 stamina = 100;
             }
+
+            AddToLog("You took a break");
+
             CurrentStamina = stamina;
         }
         public void Shoot(object sender, RoutedEventArgs e)
@@ -157,8 +193,12 @@ namespace ArcherySimulator
             CurrentStamina -= requiredStamina;
 
             int result = (int) (rand.Next(1, 11) + Math.Round(0.1 * CurrentLevel));
+            if(result > 10)
+            {
+                result = 10;
+            }
             AddToLog("You hit a " + result);
-            CurrentExperience += result;            
+            CurrentExperience += result;
             AddToLog("You received " + result + " experience");
         }
     }

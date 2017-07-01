@@ -53,7 +53,7 @@
             <Button Content="Train" Click="Train" Grid.Row="0" Grid.Column="0"/>
             <Button Content="Sleep" Click="Sleep" Grid.Row="0" Grid.Column="1"/>
             <Button Content="Shoot" Click="Shoot" Grid.Row="2" Grid.Column="0"/>
-            <Button Content="Break" Click="Break" Grid.Row="2" Grid.Column="1"/>
+            <Button x:Name="btnBreak" Content="Break" Click="Break" Grid.Row="2" Grid.Column="1"/>
         </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="10">
             <ListBox ItemsSource="{Binding EventLog, UpdateSourceTrigger=PropertyChanged}" MinHeight="100" MaxHeight="100"/>
