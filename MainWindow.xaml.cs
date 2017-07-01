@@ -77,23 +77,19 @@ namespace ArcherySimulator
                 {
                     if(CurrentLevel == 1 && (value < 0))
                     {
-                        MessageBox.Show("1");
                         currentExperience = 0;
                     }
                     else
                     {
-                        MessageBox.Show("2 " + value);
                         currentExperience = value;
                     }
                     if (currentExperience >= 100)
                     {
-                        MessageBox.Show("3");
                         currentExperience = currentExperience - 100;
                         CurrentLevel += 1;
                     }
                     else if (currentExperience < 0)
                     {
-                        MessageBox.Show("4 " + value);
                         CurrentLevel -= 1;
                         currentExperience = 100 + value;
                     }
