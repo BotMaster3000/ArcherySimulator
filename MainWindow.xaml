@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArcherySimulator"
         mc:Ignorable="d"
-        Title="ArcherySimulator" Height="auto" Width="auto" SizeToContent="WidthAndHeight" >
+        Title="ArcherySimulator" Height="auto" Width="auto" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="20"/>
@@ -23,9 +27,9 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Text="Stamina:" Grid.Row="0"/>
-            <TextBlock Text="{Binding CurrentStamina}" Grid.Row="1"/>
+            <TextBlock Text="{Binding CurrentStamina, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"/>
             <TextBlock Text="Experience:" Grid.Row="2"/>
-            <TextBlock Text="{Binding CurrentExperience}" Grid.Row="3"/>
+            <TextBlock Text="{Binding CurrentExperience, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3"/>
         </Grid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
@@ -35,7 +39,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Text="Level:" Grid.Row="2"/>
-            <TextBlock Text="{Binding CurrentLevel}" Grid.Row="3"/>
+            <TextBlock Text="{Binding CurrentLevel, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3"/>
         </Grid>
         <Grid Grid.Column="4">
             <Grid.RowDefinitions>
@@ -51,6 +55,9 @@
             <Button Content="Sleep" Grid.Row="0" Grid.Column="1"/>
             <Button Content="Shoot" Grid.Row="2" Grid.Column="0"/>
             <Button Content="Break" Grid.Row="2" Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="10">
+            <ListBox ItemsSource="{Binding EventLog}"/>
         </Grid>
     </Grid>
 </Window>
