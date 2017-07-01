@@ -23,6 +23,7 @@ namespace ArcherySimulator
     public partial class MainWindow : Window
     {
         public ObservableCollection<string> EventLog = new ObservableCollection<string>();
+        Random rand = new Random();
         string currentStamina;
         public string CurrentStamina
         {
@@ -84,6 +85,40 @@ namespace ArcherySimulator
         {
             InitializeComponent();
             this.DataContext = this;
+        }
+        private void AddToLog(string entry)
+        {
+            if(EventLog.Count >= 10)
+            {
+                EventLog.RemoveAt(0);
+            }
+            EventLog.Add(entry);
+        }
+        public void Train(object sender, RoutedEventArgs e)
+        {
+
+        }
+        public void Sleep(object sender, RoutedEventArgs e)
+        {
+            CurrentStamina = "100";
+            AddToLog("You went to sleep");
+        }
+        public void Break(object sender, RoutedEventArgs e)
+        {
+            int stamina = Convert.ToInt32(CurrentStamina);
+            stamina += 50;
+            if(stamina > 100)
+            {
+                stamina = 100;
+            }
+            CurrentStamina = stamina.ToString();
+        }
+        public void Shoot(object sender, RoutedEventArgs e)
+        {
+            int result = (int)(1 / (rand.Next(1, 11) + Math.Round(0.1 * Convert.ToInt32(CurrentLevel))));
+            AddToLog("You hit a " + result.ToString());
+            CurrentExperience += result;
+            AddToLog("You received " + result.ToString() + " experience");
         }
     }
 }
