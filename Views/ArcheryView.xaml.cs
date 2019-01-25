@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,15 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ArcherySimulator.ViewModels;
 
-namespace ArcherySimulator
+namespace ArcherySimulator.Views
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaktionslogik für ArcheryView.xaml
+    /// </summary>
+    public partial class ArcheryView : UserControl
     {
-        public MainWindow()
+        public ArcheryView()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = new ArcheryViewModel();
         }
     }
 }
