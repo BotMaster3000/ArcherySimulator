@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using ArcherySimulator.Commands;
+using ArcherySimulator.Models;
 
 namespace ArcherySimulator.ViewModels
 {
@@ -62,7 +63,7 @@ namespace ArcherySimulator.ViewModels
             get { return sleepCommand; }
             set
             {
-                if(sleepCommand != value)
+                if (sleepCommand != value)
                 {
                     sleepCommand = value;
                     OnPropertyChanged(nameof(SleepCommand));
@@ -70,97 +71,61 @@ namespace ArcherySimulator.ViewModels
             }
         }
 
-        Random rand = new Random();
-        private ObservableCollection<string> eventLog;
+        private Random rand = new Random();
+
+        private ObservableCollection<string> eventLog = new ObservableCollection<string>();
         public ObservableCollection<string> EventLog
         {
-            get
-            {
-                if (eventLog == null)
-                {
-                    eventLog = new ObservableCollection<string>();
-                }
-                return eventLog;
-            }
+            get { return eventLog; }
             set
             {
                 if (eventLog != value)
                 {
                     eventLog = value;
+                    OnPropertyChanged(nameof(EventLog));
                 }
             }
         }
-        private int stamina = -1;
+
+        private int stamina;
         public int Stamina
         {
-            get
-            {
-                if (stamina == -1)
-                {
-                    stamina = 100;
-                }
-                return stamina;
-            }
+            get { return stamina; }
             set
             {
                 if (stamina != value)
                 {
                     stamina = value;
-                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentStamina"));
+                    OnPropertyChanged(nameof(Stamina));
                 }
             }
         }
+
         private int experience;
         public int Experience
         {
-            get
-            {
-                return experience;
-            }
+            get { return experience; }
             set
             {
                 if (experience != value)
                 {
-                    if (Level == 1 && (value < 0))
-                    {
-                        experience = 0;
-                    }
-                    else
-                    {
-                        experience = value;
-                    }
-                    if (experience >= 100)
-                    {
-                        experience = experience - 100;
-                        Level += 1;
-                    }
-                    else if (experience < 0)
-                    {
-                        Level -= 1;
-                        experience = 100 + value;
-                    }
-                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentExperience"));
+                    experience = value;
+                    CheckForLevelChange();
+                    OnPropertyChanged(nameof(Experience));
                 }
             }
         }
         private int level;
         public int Level
         {
-            get
-            {
-                if (level == 0)
-                {
-                    level = 1;
-                }
-                return level;
-            }
+            get { return level; }
             set
             {
                 if (level != value)
                 {
                     level = value;
                     AddToLog("You are now level " + Level);
-                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentLevel"));
+                    OnPropertyChanged(nameof(Level));
                 }
             }
         }
@@ -185,6 +150,11 @@ namespace ArcherySimulator.ViewModels
             SleepCommand = new Command(Sleep);
             BreakCommand = new Command(Break);
             ShootCommand = new Command(Shoot);
+
+            Stamina = 100;
+            Level = 1;
+            Experience = 0;
+            BreakIsEnabled = true;
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -200,17 +170,30 @@ namespace ArcherySimulator.ViewModels
             }
             EventLog.Add(entry);
         }
+
         private bool HasEnoughStamina(int requiredStamina)
         {
-            if ((Stamina - requiredStamina) >= 0)
+            return (Stamina - requiredStamina) >= 0;
+        }
+
+        private void CheckForLevelChange()
+        {
+            if (Level == 1 && (Experience < 0))
             {
-                return true;
+                Experience = 0;
             }
-            else
+            if (Experience >= 100)
             {
-                return false;
+                Experience = Experience - 100;
+                Level += 1;
+            }
+            else if (Experience < 0)
+            {
+                Level -= 1;
+                Experience = 100 + Experience;
             }
         }
+
         public void Train()
         {
             while (HasEnoughStamina(10))
@@ -219,6 +202,7 @@ namespace ArcherySimulator.ViewModels
             }
             AddToLog("You dont habe enough Stamina");
         }
+
         public void Sleep()
         {
             Stamina = 100;
@@ -228,11 +212,8 @@ namespace ArcherySimulator.ViewModels
             AddToLog("You went to sleep");
 
             BreakIsEnabled = true;
-            //if (btnBreak.IsEnabled == false)
-            //{
-            //    btnBreak.IsEnabled = true;
-            //}
         }
+
         public void Break()
         {
             BreakIsEnabled = false;
@@ -249,6 +230,7 @@ namespace ArcherySimulator.ViewModels
 
             Stamina = stamina;
         }
+
         public void Shoot()
         {
             int requiredStamina = 10;
