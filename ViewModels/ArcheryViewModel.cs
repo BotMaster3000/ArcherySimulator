@@ -6,12 +6,69 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ArcherySimulator.Commands;
 
 namespace ArcherySimulator.ViewModels
 {
     public class ArcheryViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private Command trainCommand;
+        public Command TrainCommand
+        {
+            get { return trainCommand; }
+            set
+            {
+                if (trainCommand != value)
+                {
+                    trainCommand = value;
+                    OnPropertyChanged(nameof(TrainCommand));
+                }
+            }
+        }
+
+        private Command shootCommand;
+        public Command ShootCommand
+        {
+            get { return shootCommand; }
+            set
+            {
+                if (shootCommand != value)
+                {
+                    shootCommand = value;
+                    OnPropertyChanged(nameof(ShootCommand));
+                }
+            }
+        }
+
+        private Command breakCommand;
+        public Command BreakCommand
+        {
+            get { return breakCommand; }
+            set
+            {
+                if (breakCommand != value)
+                {
+                    breakCommand = value;
+                    OnPropertyChanged(nameof(BreakCommand));
+                }
+            }
+        }
+
+        private Command sleepCommand;
+        public Command SleepCommand
+        {
+            get { return sleepCommand; }
+            set
+            {
+                if(sleepCommand != value)
+                {
+                    sleepCommand = value;
+                    OnPropertyChanged(nameof(SleepCommand));
+                }
+            }
+        }
 
         Random rand = new Random();
         private ObservableCollection<string> eventLog;
@@ -114,12 +171,20 @@ namespace ArcherySimulator.ViewModels
             get { return breakIsEnabled; }
             set
             {
-                if(breakIsEnabled != value)
+                if (breakIsEnabled != value)
                 {
                     breakIsEnabled = value;
                     OnPropertyChanged(nameof(BreakIsEnabled));
                 }
             }
+        }
+
+        public ArcheryViewModel()
+        {
+            TrainCommand = new Command(Train);
+            SleepCommand = new Command(Sleep);
+            BreakCommand = new Command(Break);
+            ShootCommand = new Command(Shoot);
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -146,15 +211,15 @@ namespace ArcherySimulator.ViewModels
                 return false;
             }
         }
-        public void Train(object sender, RoutedEventArgs e)
+        public void Train()
         {
             while (HasEnoughStamina(10))
             {
-                Shoot(new object(), new RoutedEventArgs());
+                Shoot();
             }
             AddToLog("You dont habe enough Stamina");
         }
-        public void Sleep(object sender, RoutedEventArgs e)
+        public void Sleep()
         {
             Stamina = 100;
 
@@ -168,7 +233,7 @@ namespace ArcherySimulator.ViewModels
             //    btnBreak.IsEnabled = true;
             //}
         }
-        public void Break(object sender, RoutedEventArgs e)
+        public void Break()
         {
             BreakIsEnabled = false;
             //btnBreak.IsEnabled = false;
@@ -184,7 +249,7 @@ namespace ArcherySimulator.ViewModels
 
             Stamina = stamina;
         }
-        public void Shoot(object sender, RoutedEventArgs e)
+        public void Shoot()
         {
             int requiredStamina = 10;
             if (!HasEnoughStamina(requiredStamina))

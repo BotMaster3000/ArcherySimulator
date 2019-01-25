@@ -23,8 +23,13 @@ namespace ArcherySimulator.Views
     {
         public ArcheryView()
         {
-            InitializeComponent();
             DataContext = new ArcheryViewModel();
+            InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

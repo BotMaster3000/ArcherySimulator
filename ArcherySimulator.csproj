@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\Command.cs" />
     <Compile Include="Models\ArcheryModel.cs" />
     <Compile Include="ViewModels\ArcheryViewModel.cs" />
     <Compile Include="Views\ArcheryView.xaml.cs">
