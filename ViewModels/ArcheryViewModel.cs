@@ -200,7 +200,7 @@ namespace ArcherySimulator.ViewModels
             {
                 Shoot();
             }
-            AddToLog("You dont habe enough Stamina");
+            AddToLog("You dont have enough Stamina");
         }
 
         public void Sleep()
@@ -217,7 +217,6 @@ namespace ArcherySimulator.ViewModels
         public void Break()
         {
             BreakIsEnabled = false;
-            //btnBreak.IsEnabled = false;
 
             int stamina = Stamina;
             stamina += 50;
