@@ -240,7 +240,12 @@ namespace ArcherySimulator.ViewModels
             }
             Stamina -= requiredStamina;
 
-            int result = (int)(rand.Next(1, 11) + Math.Round(0.1 * Level));
+            // Math.Round uses banker's rounding which would round values like 0.5 to
+            // the nearest even number (0). That behaviour causes level modifiers
+            // to not increase as expected at level 5, 15, ... . Use AwayFromZero
+            // rounding so that a value of 0.5 becomes 1.
+            int result = rand.Next(1, 11) +
+                         (int)Math.Round(0.1 * Level, MidpointRounding.AwayFromZero);
             if (result > 10)
             {
                 result = 10;
