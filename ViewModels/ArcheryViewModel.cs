@@ -200,7 +200,7 @@ namespace ArcherySimulator.ViewModels
             {
                 Shoot();
             }
-            AddToLog("You dont have enough Stamina");
+            AddToLog("You don't have enough stamina");
         }
 
         public void Sleep()
@@ -235,7 +235,7 @@ namespace ArcherySimulator.ViewModels
             int requiredStamina = 10;
             if (!HasEnoughStamina(requiredStamina))
             {
-                AddToLog("You dont have enough Stamina");
+                AddToLog("You don't have enough stamina");
                 return;
             }
             Stamina -= requiredStamina;
