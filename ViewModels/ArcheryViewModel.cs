@@ -178,19 +178,34 @@ namespace ArcherySimulator.ViewModels
 
         private void CheckForLevelChange()
         {
-            if (Level == 1 && (Experience < 0))
+            int oldExperience = experience;
+            int oldLevel = level;
+
+            if (level == 1 && experience < 0)
             {
-                Experience = 0;
+                experience = 0;
             }
-            if (Experience >= 100)
+
+            if (experience >= 100)
             {
-                Experience = Experience - 100;
-                Level += 1;
+                experience -= 100;
+                level += 1;
             }
-            else if (Experience < 0)
+            else if (experience < 0)
             {
-                Level -= 1;
-                Experience = 100 + Experience;
+                level -= 1;
+                experience = 100 + experience;
+            }
+
+            if (experience != oldExperience)
+            {
+                OnPropertyChanged(nameof(Experience));
+            }
+
+            if (level != oldLevel)
+            {
+                AddToLog("You are now level " + level);
+                OnPropertyChanged(nameof(Level));
             }
         }
 
