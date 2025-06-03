@@ -17,7 +17,7 @@ using ArcherySimulator.ViewModels;
 namespace ArcherySimulator.Views
 {
     /// <summary>
-    /// Interaktionslogik für ArcheryView.xaml
+    /// Interaction logic for ArcheryView.xaml
     /// </summary>
     public partial class ArcheryView : UserControl
     {
