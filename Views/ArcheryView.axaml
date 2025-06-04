@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300"
+             x:Class="ArcherySimulator.Views.ArcheryView">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="Stamina"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Stamina}"/>
+
+        <Label Grid.Column="0" Grid.Row="1" Content="Experience"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Experience}"/>
+
+        <Label Grid.Column="0" Grid.Row="2" Content="Level"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Level}"/>
+
+        <Button Grid.Column="2" Grid.Row="0" Content="Train" Command="{Binding TrainCommand}"/>
+        <Button Grid.Column="3" Grid.Row="0" Content="Sleep" Command="{Binding SleepCommand}"/>
+        <Button Grid.Column="2" Grid.Row="1" Content="Shoot" Command="{Binding ShootCommand}"/>
+        <Button Grid.Column="3" Grid.Row="1" Content="Break" Command="{Binding BreakCommand}" IsEnabled="{Binding BreakIsEnabled}"/>
+
+        <ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Items="{Binding EventLog}"/>
+    </Grid>
+</UserControl>
