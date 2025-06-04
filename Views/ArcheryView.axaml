@@ -32,6 +32,6 @@
         <Button Grid.Column="2" Grid.Row="1" Content="Shoot" Command="{Binding ShootCommand}"/>
         <Button Grid.Column="3" Grid.Row="1" Content="Break" Command="{Binding BreakCommand}" IsEnabled="{Binding BreakIsEnabled}"/>
 
-        <ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Items="{Binding EventLog}"/>
+        <ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" ItemsSource="{Binding EventLog}"/>
     </Grid>
 </UserControl>
