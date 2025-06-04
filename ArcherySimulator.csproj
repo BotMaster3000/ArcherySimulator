@@ -11,6 +11,17 @@
     <PackageReference Include="Avalonia" Version="11.3.0" />
     <PackageReference Include="Avalonia.Desktop" Version="11.3.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ArcherySimulator.Tests/**" />
+    <Compile Remove="Properties/Settings.Designer.cs" />
+    <None Remove="Properties/Settings.settings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ArcherySimulator.Tests\**\*.cs" />
   </ItemGroup>
 
 </Project>
