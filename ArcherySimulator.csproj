@@ -13,11 +13,8 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.0" />
   </ItemGroup>
 
-  <!-- Exclude test sources and legacy property files from compilation -->
   <ItemGroup>
     <Compile Remove="ArcherySimulator.Tests\**\*.cs" />
-    <Compile Remove="Properties\AssemblyInfo.cs" />
-    <Compile Remove="Properties\Settings.Designer.cs" />
   </ItemGroup>
 
 </Project>
