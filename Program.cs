@@ -3,7 +3,7 @@ using System;
 
 namespace ArcherySimulator;
 
-internal class Program
+public class Program
 {
     public static void Main(string[] args) => BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);

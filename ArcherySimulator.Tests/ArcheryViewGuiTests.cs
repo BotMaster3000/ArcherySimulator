@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using ArcherySimulator.Views;
-using ArcherySimulator.ViewModels;
 
 namespace ArcherySimulator.Tests;
 
@@ -24,7 +24,7 @@ public class ArcheryViewGuiTests
             Assert.IsTrue(breakButton.IsEnabled);
             breakButton.Command!.Execute(null);
             Assert.IsFalse(breakButton.IsEnabled);
-        });
+        }, CancellationToken.None);
     }
 
     [TestMethod]
@@ -37,6 +37,6 @@ public class ArcheryViewGuiTests
             var grid = (Grid)view.Content!;
             var buttons = grid.Children.OfType<Button>().Select(b => b.Content?.ToString()).ToList();
             CollectionAssert.AreEquivalent(new[] { "Train", "Sleep", "Shoot", "Break" }, buttons);
-        });
+        }, CancellationToken.None);
     }
 }
